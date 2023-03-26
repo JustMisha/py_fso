@@ -25,7 +25,7 @@ name, you just need to write the following script:
 
    parser = ArgumentParser(description='Scan a directory and its subdirectories and search for files with path lengths greater than ' + str(MAX_FILEPATH_LENGTH) + ' characters.')
    parser.add_argument("directory", help="scan this directory with its subdirectories", metavar="DIR")
-   parser.add_argument("-m", "--max_filepath_length", help="max filepath's length")
+   parser.add_argument("-m", "--max_filepath_length", help="max file path's length")
    args = parser.parse_args()
    if args.max_filepath_length:
        MAX_FILEPATH_LENGTH = int(args.max_filepath_length)
@@ -42,7 +42,7 @@ Getting Started
 Prerequisites
 ~~~~~~~~~~~~~
 
--  `python <https://www.python.org/>`__ (version >=3+, version 2+ dosn't
+-  `python <https://www.python.org/>`__ (version >=3+, version 2+ doesn't
    check)
 
 
@@ -63,6 +63,33 @@ Using
     # then you can use it in your scripts
     from py_fso import folder
     from py_fso import textfile
+
+One more script example
+~~~~~~~~~~
+
+::
+
+    #!/usr/bin/python
+    # -*- coding: utf-8 -*-
+    """ Try to find  all files in the folder of a site including sub-folders which are not UTF-8 encoded."""
+
+    import chardet
+    import os.path
+    from py_fso import folder
+
+    fileListExtensions = ["htm", "html", "php", "css", "js"]
+
+    def print_if_file_code_page_not_utf8(fileEntry) :
+        filePath = fileEntry.path
+        if os.path.splitext(filePath)[1][1:].strip().lower() in fileListExtensions:
+            with open(filePath, "rb") as F:
+                text = F.read()
+                enc = chardet.detect(text).get("encoding")
+                if enc and enc.lower() != "utf-8":
+                    print("File " + filePath + " might not be UTF-8 encoded")
+
+    folder.process("path\\to\\your\\site\\folder", proc_file_function = print_if_file_code_page_not_utf8, process_dirs = False, proc_dir_function = None, go_into_subdirs = True)
+
 
 Versioning
 ----------
