@@ -65,7 +65,7 @@ Using
     from py_fso import textfile
 
 One more script example
-~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
 
 ::
 
