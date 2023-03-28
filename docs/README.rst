@@ -34,7 +34,10 @@ name, you just need to write the following script:
 
 Just one call to folder.process() will replace all the details of traversing the contents of the folder, allowing you to focus on the main action of the script.
 
+The package also includes several useful functions for working with text files.
+
 I use this package all the time in my work, installing it globally so that it's available to all scripts. It's very convenient.
+
 
 Getting Started
 ---------------
