@@ -7,7 +7,7 @@ import unittest
 import py_fso.folder
 
 class FolderTestCase(unittest.TestCase):
-    maxDiff = None
+
     common_init_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), "folder", "test_init")
     def test_process_print_all_files_and_subdirs(self):
         output = ''
