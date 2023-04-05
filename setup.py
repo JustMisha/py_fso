@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='py_fso',
-    version='1.0.7',
+    version='1.0.8',
     description='The Python package for working with dirs and files',
     long_description=open('docs/README.rst', 'r').read(),
     long_description_content_type="text/x-rst",
