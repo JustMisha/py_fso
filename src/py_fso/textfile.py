@@ -2,7 +2,6 @@
 import chardet
 import os
 
-
 def convert_to_utf8(file_path, initial_encoding=''):
     """
     Trying to convert a file into utf-8 encoding.
@@ -23,9 +22,9 @@ def convert_to_utf8(file_path, initial_encoding=''):
                 text = text.encode("utf-8")
                 with open(file_path, "wb") as f:
                     f.write(text)
-                    print(file_path + " is succesful converted.")
+                    print(file_path + " is successful converted.")
             except:
-                print("There was error while convetring " + file_path)
+                print("There was error while converting " + file_path)
         else:
             print(file_path + " is already in " + initial_encoding + "encoding. No action needed.")
 
@@ -44,7 +43,7 @@ def split_into_certain_parts_amount(input_file, parts_amount, output_name='', fi
     :type file_encode: string
     :return: None
     """
-    if (not output_name):
+    if not output_name:
         output_name = input_file
     file_size = os.stat(input_file).st_size
     part_size = int(round(file_size / parts_amount, 0))
@@ -53,9 +52,10 @@ def split_into_certain_parts_amount(input_file, parts_amount, output_name='', fi
     already_written = 0
     while already_written < file_size:
         out_file_handler = open(output_name + os.extsep + str(chunk_number), 'w', encoding=file_encode)
-        out_file_handler.writelines(input_file_handler.readlines(part_size))
+        curr_chunk = input_file_handler.readlines(part_size)
+        out_file_handler.writelines(curr_chunk)
         out_file_handler.close()
-        already_written += part_size
+        already_written += len(('\n'.join(curr_chunk) + '\n').encode(file_encode))
         chunk_number += 1
     input_file_handler.close()
 
@@ -82,8 +82,9 @@ def split_into_parts_certain_size(input_file, part_size, output_name='', file_en
     already_written = 0
     while already_written < file_size:
         out_file_handler = open(output_name + os.extsep + str(chunk_number), 'w', encoding=file_encode)
-        out_file_handler.writelines(input_file_handler.readlines(part_size))
+        curr_chunk = input_file_handler.readlines(part_size)
+        out_file_handler.writelines(curr_chunk)
         out_file_handler.close()
-        already_written += part_size
+        already_written += len(('\n'.join(curr_chunk) + '\n').encode(file_encode))
         chunk_number += 1
     input_file_handler.close()
