@@ -29,6 +29,24 @@ class TextfileTestCase(unittest.TestCase):
 
         os.remove(file_path)
 
+    def test_convert_to_utf8_no_need(self):
+        file_path = os.path.join(self.test_dir, "proba.txt")
+
+        common_text = "Проба  Test"
+
+        text = common_text.encode("UTF-8")
+        with open(file_path, "wb") as f1:
+            f1.write(text)
+
+        py_fso.textfile.convert_to_utf8(file_path)
+
+        with open(file_path, "r", encoding="UTF-8") as f2:
+            converted_text = f2.read()
+
+        self.assertEqual(common_text, converted_text)
+
+        os.remove(file_path)
+
     def test_split_into_certain_parts_amount(self):
 
         parts_amount = 10
