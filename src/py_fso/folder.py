@@ -10,8 +10,8 @@ from collections import deque
 from inspect import isfunction
 
 
-def process(init_dir, process_files=True, proc_file_function=None, process_dirs=False, proc_dir_function=None,
-            go_into_subdirs=True, follow_symlinks=False) -> int:
+def process(init_dir, process_files=True, proc_file_function=None, process_dirs=False,
+            proc_dir_function=None, go_into_subdirs=True, follow_symlinks=False) -> int:
     """
     Process all files and dirs in given init_dir (and its subdirs if go_into_subdirs = True).
 

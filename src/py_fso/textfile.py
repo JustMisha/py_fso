@@ -1,6 +1,6 @@
 ﻿"""Some useful functions for working with a text file."""
-import chardet
 import os
+import chardet
 
 def convert_to_utf8(file_path, initial_encoding=''):
     """
@@ -12,16 +12,16 @@ def convert_to_utf8(file_path, initial_encoding=''):
     :type initial_encoding: string
     :return: None
     """
-    with open(file_path, "rb") as F:
-        text = F.read()
+    with open(file_path, "rb") as source_text:
+        text = source_text.read()
         if not initial_encoding:
             initial_encoding = chardet.detect(text).get("encoding")
         if initial_encoding and initial_encoding.lower() != "utf-8":
             try:
                 text = text.decode(initial_encoding)
                 text = text.encode("utf-8")
-                with open(file_path, "wb") as f:
-                    f.write(text)
+                with open(file_path, "wb") as target_text:
+                    target_text.write(text)
                     print(file_path + " is successful converted.")
             except:
                 print("There was error while converting " + file_path)
@@ -47,17 +47,16 @@ def split_into_certain_parts_amount(input_file, parts_amount, output_name='', fi
         output_name = input_file
     file_size = os.stat(input_file).st_size
     part_size = int(round(file_size / parts_amount, 0))
-    input_file_handler = open(input_file, 'r', encoding=file_encode)
-    chunk_number = 1
-    already_written = 0
-    while already_written < file_size:
-        out_file_handler = open(output_name + os.extsep + str(chunk_number), 'w', encoding=file_encode)
-        curr_chunk = input_file_handler.readlines(part_size)
-        out_file_handler.writelines(curr_chunk)
-        out_file_handler.close()
-        already_written += len(('\n'.join(curr_chunk) + '\n').encode(file_encode))
-        chunk_number += 1
-    input_file_handler.close()
+    with open(input_file, 'r', encoding=file_encode) as input_file_handler:
+        chunk_number = 1
+        already_written = 0
+        while already_written < file_size:
+            curr_chunk = input_file_handler.readlines(part_size)
+            with open(output_name + os.extsep + str(chunk_number), 'w',
+                      encoding=file_encode) as out_file_handler:
+                out_file_handler.writelines(curr_chunk)
+            already_written += len(('\n'.join(curr_chunk) + '\n').encode(file_encode))
+            chunk_number += 1
 
 
 def split_into_parts_certain_size(input_file, part_size, output_name='', file_encode='utf8'):
@@ -77,14 +76,13 @@ def split_into_parts_certain_size(input_file, part_size, output_name='', file_en
     if not output_name:
         output_name = input_file
     file_size = os.stat(input_file).st_size
-    input_file_handler = open(input_file, 'r', encoding=file_encode)
-    chunk_number = 1
-    already_written = 0
-    while already_written < file_size:
-        out_file_handler = open(output_name + os.extsep + str(chunk_number), 'w', encoding=file_encode)
-        curr_chunk = input_file_handler.readlines(part_size)
-        out_file_handler.writelines(curr_chunk)
-        out_file_handler.close()
-        already_written += len(('\n'.join(curr_chunk) + '\n').encode(file_encode))
-        chunk_number += 1
-    input_file_handler.close()
+    with open(input_file, 'r', encoding=file_encode) as input_file_handler:
+        chunk_number = 1
+        already_written = 0
+        while already_written < file_size:
+            curr_chunk = input_file_handler.readlines(part_size)
+            with open(output_name + os.extsep + str(chunk_number), 'w',
+                      encoding=file_encode) as out_file_handler:
+                out_file_handler.writelines(curr_chunk)
+            already_written += len(('\n'.join(curr_chunk) + '\n').encode(file_encode))
+            chunk_number += 1
