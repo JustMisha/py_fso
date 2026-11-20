@@ -30,7 +30,7 @@ args = parser.parse_args()
 if args.max_filepath_length:
     MAX_FILEPATH_LENGTH = int(args.max_filepath_length)
 
-folder.process(init_dir = args.directory, proc_file_function = print_if_file_has_length_too_more_chars, process_dirs = False, proc_dir_function = '', go_into_subdirs = True)
+folder.process(init_dir=args.directory, proc_file_function=print_if_file_has_length_too_more_chars, process_dirs=False, proc_dir_function='', go_into_subdirs=True)
 
 ```
 
