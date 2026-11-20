@@ -1,8 +1,9 @@
 from io import StringIO
 import os
 import sys
-
 import unittest
+
+sys.path.append('../src')
 
 import py_fso.folder
 

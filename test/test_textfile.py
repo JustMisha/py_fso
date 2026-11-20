@@ -1,6 +1,9 @@
 import os
 import random
 
+import sys
+sys.path.append('../src')
+
 import unittest
 
 import py_fso.folder
