@@ -104,7 +104,7 @@ $ python -m coverage report html
 
 * **Михаил Трусов** - *py_fso* - [py_fso](https://github.com/JustMisha/py_fso)
 
-См. также [участники](https://github.com/your/project/contributors).
+См. также [участники](https://github.com/JustMisha/py_fso/contributors).
 
 ## Лицензия
 

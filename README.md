@@ -1,7 +1,8 @@
 [![ru](docs/ru.svg)](docs/README.ru.md)
 # Py_FSO (python file system object)
 
-The main function of this package &mdash; is to process the contents of a folder with a single function: `` folder.process()'' (pun intended :-), without going into the details of iterating over files and folders.  
+The main function of this package &mdash; is to process the contents of a folder with a single function: 
+`` folder.process()'' (pun intended :-), without going into the details of iterating over files and folders.  
 
 It's strange that python doesn't have such a built-in function, but maybe someone (maybe even myself) will write an extension to ``c`` someday.
 
@@ -95,7 +96,7 @@ We use [SemVer](http://semver.org/) for versioning.
 
 * **Mikhail Trusov** - *py_fso* - [py_fso](https://github.com/JustMisha/py_fso)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/JustMisha/py_fso/contributors) who participated in this project.
 
 ## License
 
