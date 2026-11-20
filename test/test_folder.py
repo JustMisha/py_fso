@@ -165,5 +165,31 @@ class FolderTestCase(unittest.TestCase):
 
         sys.stdout = prev_stdout
 
+    def test_process_print_all_files_and_subdirs_and_pass_permissions_denied(self):
+        import platform
+
+        if platform.system() == "Windows":
+            common_init_dir = "c:\\System Volume Information"
+        elif platform.system() == "Linux":
+            common_init_dir = "/root"
+
+        def print_entry(entry):
+            pass
+
+        prev_stdout = sys.stdout
+        result_output = StringIO()
+        sys.stdout = result_output
+
+        result = py_fso.folder.process(common_init_dir, process_files=True, proc_file_function=print_entry,
+                                       process_dirs=True, proc_dir_function=print_entry,
+                                       go_into_subdirs=True, follow_symlinks=False, verbose=True,
+                                       ignore_permissions_error=True)
+
+        self.assertEqual(result_output.getvalue(), "Permission denied:  " + common_init_dir + "\n")
+        self.assertEqual(result, 0)
+
+        sys.stdout = prev_stdout
+
+
 if __name__ == '__main__':
     unittest.main()
