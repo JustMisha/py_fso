@@ -16,30 +16,31 @@ class FolderTestCase(unittest.TestCase):
             nonlocal output
             output += entry.path + '\n'
 
-        result = py_fso.folder.process(self.common_init_dir, process_files=True, proc_file_function=just_lambda_func, process_dirs=True, proc_dir_function=just_lambda_func,
-            go_into_subdirs=True, follow_symlinks=False)
+        result = py_fso.folder.process(self.common_init_dir, process_files=True, proc_file_function=just_lambda_func,
+                                       process_dirs=True, proc_dir_function=just_lambda_func,
+                                       go_into_subdirs=True, follow_symlinks=False)
 
-        awaited_output = (
-            os.path.join(self.common_init_dir, "test_1") +
-            "\n" +
-            os.path.join(self.common_init_dir, "test_2") +
-            "\n" +
-            os.path.join(self.common_init_dir, "test_3") +
-            "\n" +
-            os.path.join(self.common_init_dir, "test_file_0.txt") +
-            "\n" +
-            os.path.join(self.common_init_dir, "test_1", "test_file_1.txt") +
-            "\n" +
-            os.path.join(self.common_init_dir, "test_1", "test_file_2.txt") +
-            "\n" +
-            os.path.join(self.common_init_dir, "test_1", "test_file_3.txt") +
-            "\n" +
-            os.path.join(self.common_init_dir, "test_2", "test_file_4.txt") +
-            "\n" +
-            os.path.join(self.common_init_dir, "test_3", "test_file_5.txt") +
-            "\n"
+        expected_output = (
+                os.path.join(self.common_init_dir, "test_1") +
+                "\n" +
+                os.path.join(self.common_init_dir, "test_2") +
+                "\n" +
+                os.path.join(self.common_init_dir, "test_3") +
+                "\n" +
+                os.path.join(self.common_init_dir, "test_file_0.txt") +
+                "\n" +
+                os.path.join(self.common_init_dir, "test_1", "test_file_1.txt") +
+                "\n" +
+                os.path.join(self.common_init_dir, "test_1", "test_file_2.txt") +
+                "\n" +
+                os.path.join(self.common_init_dir, "test_1", "test_file_3.txt") +
+                "\n" +
+                os.path.join(self.common_init_dir, "test_2", "test_file_4.txt") +
+                "\n" +
+                os.path.join(self.common_init_dir, "test_3", "test_file_5.txt") +
+                "\n"
         )
-        self.assertEqual(awaited_output, output)
+        self.assertEqual(expected_output, output)
         self.assertEqual(result, 0)
 
     def test_process_print_subdirs_only(self):
@@ -49,18 +50,19 @@ class FolderTestCase(unittest.TestCase):
             if entry.is_dir:
                 output += entry.path + '\n'
 
-        result = py_fso.folder.process(self.common_init_dir, process_files=False, proc_file_function=None, process_dirs=True, proc_dir_function=print_subdir,
-            go_into_subdirs=True, follow_symlinks=False)
-        awaited_output = (
-            os.path.join(self.common_init_dir, "test_1") +
-            "\n" +
-            os.path.join(self.common_init_dir, "test_2") +
-            "\n" +
-            os.path.join(self.common_init_dir, "test_3") +
-            "\n"
+        result = py_fso.folder.process(self.common_init_dir, process_files=False, proc_file_function=None,
+                                       process_dirs=True, proc_dir_function=print_subdir,
+                                       go_into_subdirs=True, follow_symlinks=False)
+        expected_output = (
+                os.path.join(self.common_init_dir, "test_1") +
+                "\n" +
+                os.path.join(self.common_init_dir, "test_2") +
+                "\n" +
+                os.path.join(self.common_init_dir, "test_3") +
+                "\n"
         )
 
-        self.assertEqual(awaited_output, output)
+        self.assertEqual(expected_output, output)
         self.assertEqual(result, 0)
 
     def test_process_print_files_only(self):
@@ -69,24 +71,25 @@ class FolderTestCase(unittest.TestCase):
             nonlocal output
             output += entry.path + '\n'
 
-        result = py_fso.folder.process(self.common_init_dir, process_files=True, proc_file_function=print_file, process_dirs=False, proc_dir_function=None,
-            go_into_subdirs=True, follow_symlinks=False)
-        awaited_output = (
-            os.path.join(self.common_init_dir, "test_file_0.txt") +
-            "\n" +
-            os.path.join(self.common_init_dir, "test_1", "test_file_1.txt") +
-            "\n" +
-            os.path.join(self.common_init_dir, "test_1", "test_file_2.txt") +
-            "\n" +
-            os.path.join(self.common_init_dir, "test_1", "test_file_3.txt") +
-            "\n" +
-            os.path.join(self.common_init_dir, "test_2", "test_file_4.txt") +
-            "\n" +
-            os.path.join(self.common_init_dir, "test_3", "test_file_5.txt") +
-            "\n"
+        result = py_fso.folder.process(self.common_init_dir, process_files=True, proc_file_function=print_file,
+                                       process_dirs=False, proc_dir_function=None,
+                                       go_into_subdirs=True, follow_symlinks=False)
+        expected_output = (
+                os.path.join(self.common_init_dir, "test_file_0.txt") +
+                "\n" +
+                os.path.join(self.common_init_dir, "test_1", "test_file_1.txt") +
+                "\n" +
+                os.path.join(self.common_init_dir, "test_1", "test_file_2.txt") +
+                "\n" +
+                os.path.join(self.common_init_dir, "test_1", "test_file_3.txt") +
+                "\n" +
+                os.path.join(self.common_init_dir, "test_2", "test_file_4.txt") +
+                "\n" +
+                os.path.join(self.common_init_dir, "test_3", "test_file_5.txt") +
+                "\n"
         )
 
-        self.assertEqual(awaited_output, output)
+        self.assertEqual(expected_output, output)
         self.assertEqual(result, 0)
 
     def test_process_print_files_only_without_subdirs(self):
@@ -95,14 +98,15 @@ class FolderTestCase(unittest.TestCase):
             nonlocal output
             output += entry.path + '\n'
 
-        result = py_fso.folder.process(self.common_init_dir, process_files=True, proc_file_function=print_file, process_dirs=False, proc_dir_function=None,
-            go_into_subdirs=False, follow_symlinks=False)
-        awaited_output = (
-            os.path.join(self.common_init_dir, "test_file_0.txt") +
-            "\n"
+        result = py_fso.folder.process(self.common_init_dir, process_files=True, proc_file_function=print_file,
+                                       process_dirs=False, proc_dir_function=None,
+                                       go_into_subdirs=False, follow_symlinks=False)
+        expected_output = (
+                os.path.join(self.common_init_dir, "test_file_0.txt") +
+                "\n"
         )
 
-        self.assertEqual(awaited_output, output)
+        self.assertEqual(expected_output, output)
         self.assertEqual(result, 0)
 
     def test_process_print_files_subdirs_in_init_dir_only(self):
@@ -111,20 +115,21 @@ class FolderTestCase(unittest.TestCase):
             nonlocal output
             output += entry.path + '\n'
 
-        result = py_fso.folder.process(self.common_init_dir, process_files=True, proc_file_function=print_entry, process_dirs=True, proc_dir_function=print_entry,
-            go_into_subdirs=False, follow_symlinks=False)
+        result = py_fso.folder.process(self.common_init_dir, process_files=True, proc_file_function=print_entry,
+                                       process_dirs=True, proc_dir_function=print_entry,
+                                       go_into_subdirs=False, follow_symlinks=False)
 
-        awaited_output = (
-            os.path.join(self.common_init_dir, "test_1") +
-            "\n" +
-            os.path.join(self.common_init_dir, "test_2") +
-            "\n" +
-            os.path.join(self.common_init_dir, "test_3") +
-            "\n" +
-            os.path.join(self.common_init_dir, "test_file_0.txt") +
-            "\n"
+        expected_output = (
+                os.path.join(self.common_init_dir, "test_1") +
+                "\n" +
+                os.path.join(self.common_init_dir, "test_2") +
+                "\n" +
+                os.path.join(self.common_init_dir, "test_3") +
+                "\n" +
+                os.path.join(self.common_init_dir, "test_file_0.txt") +
+                "\n"
         )
-        self.assertEqual(awaited_output, output)
+        self.assertEqual(expected_output, output)
         self.assertEqual(result, 0)
 
     def test_process_run_without_proc_file_function(self):
@@ -133,8 +138,9 @@ class FolderTestCase(unittest.TestCase):
         result_output = StringIO()
         sys.stdout = result_output
 
-        result = py_fso.folder.process(self.common_init_dir, process_files=True, proc_file_function=None, process_dirs=False, proc_dir_function=None,
-            go_into_subdirs=False, follow_symlinks=False)
+        result = py_fso.folder.process(self.common_init_dir, process_files=True, proc_file_function=None,
+                                       process_dirs=False, proc_dir_function=None,
+                                       go_into_subdirs=False, follow_symlinks=False)
 
         self.assertEqual(result_output.getvalue(), "No function for files\n")
         self.assertEqual(result, -1)
@@ -150,8 +156,9 @@ class FolderTestCase(unittest.TestCase):
         result_output = StringIO()
         sys.stdout = result_output
 
-        result = py_fso.folder.process(self.common_init_dir, process_files=True, proc_file_function=print_entry, process_dirs=True, proc_dir_function=None,
-            go_into_subdirs=False, follow_symlinks=False)
+        result = py_fso.folder.process(self.common_init_dir, process_files=True, proc_file_function=print_entry,
+                                       process_dirs=True, proc_dir_function=None,
+                                       go_into_subdirs=False, follow_symlinks=False)
 
         self.assertEqual(result_output.getvalue(), "No function for dirs\n")
         self.assertEqual(result, -1)
