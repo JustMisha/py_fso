@@ -7,11 +7,13 @@ sys.path.append('../src')
 
 import py_fso.folder
 
-class FolderTestCase(unittest.TestCase):
 
+class FolderTestCase(unittest.TestCase):
     common_init_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), "folder", "test_init")
+
     def test_process_print_all_files_and_subdirs(self):
         output = ''
+
         def just_lambda_func(entry):
             nonlocal output
             output += entry.path + '\n'
@@ -45,6 +47,7 @@ class FolderTestCase(unittest.TestCase):
 
     def test_process_print_subdirs_only(self):
         output = ''
+
         def print_subdir(entry):
             nonlocal output
             if entry.is_dir:
@@ -67,6 +70,7 @@ class FolderTestCase(unittest.TestCase):
 
     def test_process_print_files_only(self):
         output = ''
+
         def print_file(entry):
             nonlocal output
             output += entry.path + '\n'
@@ -94,6 +98,7 @@ class FolderTestCase(unittest.TestCase):
 
     def test_process_print_files_only_without_subdirs(self):
         output = ''
+
         def print_file(entry):
             nonlocal output
             output += entry.path + '\n'
@@ -111,6 +116,7 @@ class FolderTestCase(unittest.TestCase):
 
     def test_process_print_files_subdirs_in_init_dir_only(self):
         output = ''
+
         def print_entry(entry):
             nonlocal output
             output += entry.path + '\n'
@@ -148,7 +154,6 @@ class FolderTestCase(unittest.TestCase):
         sys.stdout = prev_stdout
 
     def test_process_run_without_proc_dir_function(self):
-
         def print_entry(entry):
             pass
 
