@@ -11,7 +11,8 @@ from inspect import isfunction
 
 
 def process(init_dir, process_files=True, proc_file_function=None, process_dirs=False,
-            proc_dir_function=None, go_into_subdirs=True, follow_symlinks=False) -> int:
+            proc_dir_function=None, go_into_subdirs=True, follow_symlinks=False,
+            verbose=False, ignore_permissions_error=True) -> int:
     """
     Process all files and dirs in given init_dir (and its subdirs if go_into_subdirs = True).
 
@@ -29,7 +30,11 @@ def process(init_dir, process_files=True, proc_file_function=None, process_dirs=
     :type go_into_subdirs: bool
     :param follow_symlinks: whether the symlinks should be treated as normal folders
     :type follow_symlinks: bool
-    :return: -1 if failed and 0 if succeded
+    :param verbose: whether to print messages or not
+    :type verbose: bool
+    :param ignore_permissions_error: whether to ignore permissions error or not
+    :type verbose: bool
+    :return: -1 if failed and 0 if succeeded
     :rtype: int
 
     """
@@ -50,8 +55,12 @@ def process(init_dir, process_files=True, proc_file_function=None, process_dirs=
             dir_iterator = scandir(path)
         except PermissionError:
             # System Volume Information, Recycle and the like
-            print("Permission denied: ", path)
-            continue
+            if verbose:
+                print("Permission denied: ", path)
+            if ignore_permissions_error:
+                continue
+            else:
+                raise
         for entry in dir_iterator:
             if entry.is_dir(follow_symlinks=follow_symlinks):
                 if process_dirs:
